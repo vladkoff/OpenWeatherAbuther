@@ -30,9 +30,6 @@ public class JsonParser {
                     null
             ));
         }
-
-
         return weathers;
     }
-
 }
