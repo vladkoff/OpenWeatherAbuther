@@ -20,4 +20,8 @@ public class CityService {
         return cityRepo.findAll();
     }
 
+    public City getCityByAPIID(long APIID){
+        return cityRepo.getByApiId(APIID);
+    }
+
 }

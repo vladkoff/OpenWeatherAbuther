@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import web.Entities.Weather;
+import web.services.CityService;
 import web.services.DataProvider;
 import web.services.JsonParser;
+import web.services.WeatherService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,13 +42,18 @@ public class MainController {
     @Autowired
     private JsonParser jsonParser;
 
+    @Autowired
+    private WeatherService weatherService;
+
+    @Autowired
+    private CityService cityService;
+
     @GetMapping("/")
     public String getWeather(Model model) throws IOException{
 
+        weatherService.getWeathersCityFiveDays(cityService.getCityByAPIID(698740));
 
-        JSONObject jsonForCity = dataProvider.getJsonForCity(698740);
-
-        List<Weather> weatherList = jsonParser.parse(jsonForCity);
+        List<Weather> weatherList = weatherService.getWeathersCityOneDay(cityService.getCityByAPIID(698740));
 
         model.addAttribute("weatherList", weatherList);
         return "main";
