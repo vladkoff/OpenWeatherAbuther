@@ -2,7 +2,6 @@ package web.configs;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class ScheduledTasks {
     public void reportCurrentTime() throws IOException {
         weatherService.deleteAllWeathers();
         for (City city: cityService.getAllCities()){
-            List<Weather> weathers = jsonParser.parse(dataProvider.getJsonForCity(city.getApiId()));
+            List<Weather> weathers = jsonParser.parse(dataProvider.getWeatherJsonForCity(city.getApiId()));
             for (Weather weather: weathers){
                 weather.setCity(city);
                 weatherService.saveWeather(weather);

@@ -3,6 +3,7 @@ package web.services;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import web.Entities.City;
 import web.Entities.Weather;
 
 import java.util.ArrayList;
@@ -31,5 +32,17 @@ public class JsonParser {
             ));
         }
         return weathers;
+    }
+
+
+    public City getCityObjectFromJson(JSONObject APIJsonResponse){
+
+        City city = new City();
+
+        JSONObject cityJSON = APIJsonResponse.getJSONObject("city");
+        city.setName(cityJSON.getString("name"));
+        city.setApiId(cityJSON.getLong("id"));
+
+        return city;
     }
 }

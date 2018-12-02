@@ -21,7 +21,7 @@ public class DataProvider {
     private String apiUrl;
 
 
-    public JSONObject getJsonForCity(long id) throws IOException {
+    public JSONObject getWeatherJsonForCity(long id) throws IOException {
         String urlString = new StringBuilder()
                 .append(apiUrl)
                 .append("?id=")
@@ -51,5 +51,39 @@ public class DataProvider {
 
         return new JSONObject(response.toString());
     }
+
+    public JSONObject getJsonForCity(String cityName) throws IOException {
+        String urlString = new StringBuilder()
+                .append(apiUrl)
+                .append("?q=")
+                .append(cityName)
+                .append("&APPID=")
+                .append(apiKey)
+                .toString();
+
+
+        URL url = null;
+
+        url = new URL(urlString);
+
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+
+        return new JSONObject(response.toString());
+    }
+
 
 }
