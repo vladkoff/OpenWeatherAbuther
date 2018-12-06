@@ -62,7 +62,6 @@ public class WeatherService {
                     .orElseThrow(NoSuchElementException::new)));
 
 
-
             Set<String> uniqueStates = calcMap.get(day)
                     .stream()
                     .map(Weather::getState)
@@ -79,7 +78,7 @@ public class WeatherService {
             fiveDayWeathers.add(fiveDayWeatherTMP);
         }
 
-        fiveDayWeathers.sort(Comparator.comparing(weather -> weather.getDay() % new Date().getDay()));
+        fiveDayWeathers.sort(Comparator.comparing(weather -> weather.getDay() % (new Date().getDay() != 0 ? new Date().getDay() : 7)));
 
         return fiveDayWeathers;
     }
